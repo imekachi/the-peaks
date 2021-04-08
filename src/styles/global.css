@@ -1,0 +1,46 @@
+/*@font-face {*/
+/*  font-family: "Guardian Headline Full";*/
+/*  src: url("/static/fonts/GHGuardianHeadline-Regular.woff2") format("woff2"), url("/static/fonts/GHGuardianHeadline-Regular.woff") format("woff"), url("/static/fonts/GHGuardianHeadline-Regular.ttf") format("truetype");*/
+/*  font-weight: 400;*/
+/*  font-style: normal*/
+/*}*/
+
+/*@font-face {*/
+/*  font-family: "Guardian Headline Full";*/
+/*  src: url("/static/fonts/GHGuardianHeadline-Medium.woff2") format("woff2"), url("/static/fonts/GHGuardianHeadline-Medium.woff") format("woff"), url("/static/fonts/GHGuardianHeadline-Medium.ttf") format("truetype");*/
+/*  font-weight: 500;*/
+/*  font-style: normal*/
+/*}*/
+
+/*@font-face {*/
+/*  font-family: "Guardian Headline Full";*/
+/*  src: url("/static/fonts/GHGuardianHeadline-Semibold.woff2") format("woff2"), url("/static/fonts/GHGuardianHeadline-Semibold.woff") format("woff"), url("/static/fonts/GHGuardianHeadline-Semibold.ttf") format("truetype");*/
+/*  font-weight: 600;*/
+/*  font-style: normal*/
+/*}*/
+
+@font-face {
+  font-family: "Guardian Headline Full";
+  src: url("/static/fonts/GHGuardianHeadline-Bold.woff2") format("woff2"), url("/static/fonts/GHGuardianHeadline-Bold.woff") format("woff"), url("/static/fonts/GHGuardianHeadline-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal
+}
+
+/*@font-face {*/
+/*  font-family: "Guardian Headline Full";*/
+/*  src: url("/static/fonts/GHGuardianHeadline-Black.woff2") format("woff2"), url("/static/fonts/GHGuardianHeadline-Black.woff") format("woff"), url("/static/fonts/GHGuardianHeadline-Black.ttf") format("truetype");*/
+/*  font-weight: 900;*/
+/*  font-style: normal*/
+/*}*/
+
+/*@font-face {*/
+/*  font-family: "Guardian Titlepiece";*/
+/*  src: url("/static/fonts/GTGuardianTitlepiece-Bold.woff2") format("woff2"), url("/static/fonts/GTGuardianTitlepiece-Bold.woff") format("woff"), url("/static/fonts/GTGuardianTitlepiece-Bold.ttf") format("truetype");*/
+/*  font-weight: 700;*/
+/*  font-style: normal*/
+/*}*/
+
+img {
+  /* fix image floating */
+  vertical-align: bottom;
+}
