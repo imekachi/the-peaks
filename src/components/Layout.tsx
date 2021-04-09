@@ -1,16 +1,22 @@
 import React from 'react'
 import styled from 'styled-components'
-import { spacing } from '../styles/sizes'
+import snippets from '../styles/snippets'
 import NavBar from './NavBar'
 
 const ContentContainer = styled.div`
   max-width: ${(props) => props.theme.screen.lg};
+  box-sizing: content-box;
   margin: auto;
-  padding: ${spacing(4, 2)};
+  padding: 20px 15px;
 
   @media (min-width: ${(props) => props.theme.screen.sm}) {
-    padding: ${spacing(8, 3)};
+    padding: 45px 30px 105px;
   }
+`
+
+const Footer = styled.footer`
+  height: 243px;
+  ${snippets.colors.primaryBg};
 `
 
 export default function Layout({ children }: React.PropsWithChildren<{}>) {
@@ -18,6 +24,7 @@ export default function Layout({ children }: React.PropsWithChildren<{}>) {
     <div>
       <NavBar />
       <ContentContainer>{children}</ContentContainer>
+      <Footer />
     </div>
   )
 }

@@ -1,21 +1,21 @@
 import styled from 'styled-components'
-import { spacing } from '../styles/sizes'
+import snippets from '../styles/snippets'
 
 export const Button = styled.button`
-  background-color: ${(props) => props.theme.colors.primary};
-  color: ${(props) => props.theme.colors.textOnPrimaryBg};
-  font-family: ${(props) => props.theme.fontFamily.sans};
-  font-size: ${(props) => props.theme.fontSize.sm};
+  ${snippets.colors.primaryBg};
+  ${snippets.colors.textOnPrimaryBg};
+  ${snippets.fontFamily.sans};
+  ${snippets.fontSize.sm};
   font-weight: 500;
   line-height: 1;
-  padding: ${spacing(1)};
-  border-radius: ${spacing(0.5)};
+  padding: 8px 10px;
+  border-radius: 4px;
 
   //&:focus-visible {
   //
   //}
 
   > .icon {
-    margin-right: ${spacing(1)};
+    margin-right: 10px;
   }
 `

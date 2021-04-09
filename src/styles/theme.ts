@@ -7,8 +7,8 @@ export const defaultTheme: DefaultTheme = Object.freeze({
     sans: 'Roboto, "Helvetica Neue", Arial, sans-serif',
   },
   fontSize: {
-    sm: '14px',
-    base: '16px',
+    sm: '13px',
+    base: '14px',
     md: '20px',
     lg: '24px',
     xl: '34px',
@@ -23,7 +23,7 @@ export const defaultTheme: DefaultTheme = Object.freeze({
   screen: {
     sm: '640px',
     md: '768',
-    lg: '1072px',
+    lg: '1110px',
     xl: '1280px',
   },
 })

@@ -1,43 +1,133 @@
 import styled from 'styled-components'
+import ArticleCard from '../components/ArticleCard'
 import { Button } from '../components/Button'
 import { Select } from '../components/Select'
 import { ICON_BOOKMARK_ON } from '../styles/icons'
-import { spacing } from '../styles/sizes'
+import snippets from '../styles/snippets'
 
 const H1 = styled.h1`
-  font-family: ${(props) => props.theme.fontFamily.serif};
-  font-size: ${(props) => props.theme.fontSize['2xl']};
+  ${snippets.fontFamily.serif};
+  ${snippets.fontSize['2xl']};
   margin: 0;
 `
 
 const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-gap: 30px;
+  margin-bottom: 30px;
   align-items: flex-end;
+
+  ${H1} {
+    grid-column: 1 / 3;
+  }
 `
 
-const ActionWrapper = styled.div`
-  margin-left: ${spacing(2)};
+const BookmarkButtonWrapper = styled.div`
+  text-align: right;
+`
 
-  > *:not(:last-child) {
-    margin-right: ${spacing(2)};
+const H2 = styled.h2`
+  ${snippets.fontFamily.serif};
+  ${snippets.fontSize.xl};
+  margin-bottom: 30px;
+`
+
+const Section = styled.section`
+  &:not(:last-child) {
+    margin-bottom: 50px;
   }
+`
+
+const MainGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: 250px;
+  grid-gap: 30px;
+  margin-bottom: 30px;
+
+  > .main {
+    // take column 1 - 2
+    grid-column: 1 / 3;
+    // take row 1 - 2
+    grid-row: 1 / 3;
+  }
+`
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 350px;
+  grid-gap: 30px;
 `
 
 export default function Home() {
   return (
     <div>
-      <Header>
-        <H1>Top stories</H1>
-        <ActionWrapper>
-          <Button>{ICON_BOOKMARK_ON}VIEW BOOKMARK</Button>
+      <Section>
+        <Header>
+          <H1>Top stories</H1>
+          <BookmarkButtonWrapper>
+            <Button>{ICON_BOOKMARK_ON}VIEW BOOKMARK</Button>
+          </BookmarkButtonWrapper>
           <Select>
             <option value="newest">Newest first</option>
             <option value="oldest">Oldest first</option>
             <option value="popular">Most popular</option>
           </Select>
-        </ActionWrapper>
-      </Header>
+        </Header>
+        <MainGrid>
+          <ArticleCard
+            isMain
+            className="main"
+            title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000"
+            description="Republican senators on Capitol Hill have expressed their dismay at a Donald Trump."
+          />
+          <ArticleCard
+            title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000"
+            description="Republican senators on Capitol Hill have expressed their dismay at a Donald Trump."
+          />
+          <ArticleCard
+            title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000"
+            description="Republican senators on Capitol Hill have expressed their dismay at a Donald Trump."
+          />
+          <ArticleCard
+            title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000"
+            description="Republican senators on Capitol Hill have expressed their dismay at a Donald Trump."
+          />
+          <ArticleCard
+            title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000"
+            description="Republican senators on Capitol Hill have expressed their dismay at a Donald Trump."
+          />
+        </MainGrid>
+        <Grid>
+          <ArticleCard
+            title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000"
+            description="Republican senators on Capitol Hill have expressed their dismay at a Donald Trump."
+          />
+          <ArticleCard
+            title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000"
+            description="Republican senators on Capitol Hill have expressed their dismay at a Donald Trump."
+          />
+          <ArticleCard
+            title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000"
+            description="Republican senators on Capitol Hill have expressed their dismay at a Donald Trump."
+          />
+        </Grid>
+      </Section>
+      <Section>
+        <H2>Sports</H2>
+        <Grid>
+          <ArticleCard
+            title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000"
+            description="Republican senators on Capitol Hill have expressed their dismay at a Donald Trump."
+          />
+          <ArticleCard
+            title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000"
+            description="Republican senators on Capitol Hill have expressed their dismay at a Donald Trump."
+          />
+        </Grid>
+      </Section>
     </div>
   )
 }

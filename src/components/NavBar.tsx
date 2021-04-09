@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { spacing } from '../styles/sizes'
 import SearchBox from './SearchBox'
 
 const Wrapper = styled.nav`
@@ -13,15 +12,16 @@ const Container = styled.div`
   align-items: center;
   max-width: ${(props) => props.theme.screen.lg};
   margin: auto;
-  padding: ${spacing(2)};
+  padding: 15px;
+  box-sizing: content-box;
 
   @media (min-width: ${(props) => props.theme.screen.sm}) {
-    padding: ${spacing(5, 2)};
+    padding: 35px 30px;
   }
 `
 
 const Logo = styled.a`
-  height: ${spacing(4)};
+  height: 30px;
 
   > img {
     height: 100%;
@@ -29,7 +29,7 @@ const Logo = styled.a`
   }
 
   @media (min-width: ${(props) => props.theme.screen.sm}) {
-    height: ${spacing(6)};
+    height: 56px;
   }
 `
 
@@ -45,8 +45,8 @@ export default function NavBar() {
           <img
             src="/static/images/logo-white.png"
             alt="The Peaks Logo"
-            width="133"
-            height="50"
+            width="142"
+            height="56"
             loading="lazy"
           />
         </Logo>
