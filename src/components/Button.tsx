@@ -6,12 +6,10 @@ export const Button = styled.button`
   color: ${(props) => props.theme.colors.textOnPrimaryBg};
   font-family: ${(props) => props.theme.fontFamily.sans};
   font-size: ${(props) => props.theme.fontSize.sm};
+  font-weight: 500;
   line-height: 1;
   padding: ${spacing(1)};
   border-radius: ${spacing(0.5)};
-  border: 0 none;
-  outline: none;
-  cursor: pointer;
 
   //&:focus-visible {
   //
