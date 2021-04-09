@@ -11,6 +11,7 @@ declare module 'styled-components' {
     fontSize: {
       sm: string
       base: string
+      md: string
       lg: string
       xl: string
       '2xl': string
