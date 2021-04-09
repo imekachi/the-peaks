@@ -16,8 +16,8 @@ export const defaultTheme: DefaultTheme = Object.freeze({
   },
   colors: {
     primary: COLORS.BLUE_800,
-    bodyBg: COLORS.WHITE,
-    text: COLORS.GRAY_700,
+    bodyBg: COLORS.GRAY_100,
+    text: 'rgba(0,0,0,0.87)',
     textOnPrimaryBg: COLORS.WHITE,
   },
   screen: {
