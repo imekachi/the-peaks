@@ -9,6 +9,7 @@ declare module 'styled-components' {
       sans: string
     }
     fontSize: {
+      xs: string
       sm: string
       base: string
       md: string
@@ -19,8 +20,9 @@ declare module 'styled-components' {
     colors: {
       primary: string
       bodyBg: string
-      text: string
+      textOnBody: string
       textOnPrimaryBg: string
+      sectionBorder: string
     }
     screen: {
       sm: string

@@ -3,11 +3,14 @@ import type { AppProps } from 'next/app'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import Layout from '../components/Layout'
 import '../styles/global.css'
+import snippets from '../styles/snippets'
 import { defaultTheme } from '../styles/theme'
 
 const GlobalStyle = createGlobalStyle`
   body {
     background-color: ${(props) => props.theme.colors.bodyBg};
+    ${snippets.fontFamily.sans};
+    ${snippets.colors.textOnBody};
   }
 `
 

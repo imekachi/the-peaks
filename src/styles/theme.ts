@@ -1,5 +1,4 @@
 import { DefaultTheme } from 'styled-components'
-import COLORS from './colors'
 
 export const defaultTheme: DefaultTheme = Object.freeze({
   fontFamily: {
@@ -7,6 +6,7 @@ export const defaultTheme: DefaultTheme = Object.freeze({
     sans: 'Roboto, "Helvetica Neue", Arial, sans-serif',
   },
   fontSize: {
+    xs: '12px',
     sm: '13px',
     base: '14px',
     md: '20px',
@@ -15,14 +15,15 @@ export const defaultTheme: DefaultTheme = Object.freeze({
     '2xl': '48px',
   },
   colors: {
-    primary: COLORS.BLUE_800,
-    bodyBg: COLORS.GRAY_100,
-    text: 'rgba(0,0,0,0.87)',
-    textOnPrimaryBg: COLORS.WHITE,
+    primary: '#09357b',
+    bodyBg: '#fafafa',
+    textOnBody: 'rgba(0,0,0,0.87)',
+    textOnPrimaryBg: '#ffffff',
+    sectionBorder: '#ededed',
   },
   screen: {
     sm: '640px',
-    md: '768',
+    md: '768px',
     lg: '1110px',
     xl: '1280px',
   },

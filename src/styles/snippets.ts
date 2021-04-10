@@ -11,12 +11,16 @@ const fontSize = (size: keyof DefaultTheme['fontSize']) => css`
   font-size: ${(props) => props.theme.fontSize[size]};
 `
 
+const colorPrimaryBg = css`
+  background-color: ${(props) => props.theme.colors.primary};
+`
+
 const colorTextOnPrimaryBg = css`
   color: ${(props) => props.theme.colors.textOnPrimaryBg};
 `
 
-const colorPrimaryBg = css`
-  background-color: ${(props) => props.theme.colors.primary};
+const colorTextOnBody = css`
+  color: ${(props) => props.theme.colors.textOnBody};
 `
 
 const snippets = {
@@ -39,6 +43,7 @@ const snippets = {
   colors: {
     primaryBg: colorPrimaryBg,
     textOnPrimaryBg: colorTextOnPrimaryBg,
+    textOnBody: colorTextOnBody,
   },
 }
 
