@@ -7,7 +7,7 @@ const ContentContainer = styled.div`
   max-width: ${(props) => props.theme.screen.lg};
   box-sizing: content-box;
   margin: auto;
-  padding: 20px 15px;
+  padding: 20px 15px 45px;
 
   @media (min-width: ${(props) => props.theme.screen.sm}) {
     padding: 45px 30px 105px;
