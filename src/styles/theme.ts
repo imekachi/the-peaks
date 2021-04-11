@@ -20,6 +20,7 @@ export const defaultTheme: DefaultTheme = Object.freeze({
     textOnBody: 'rgba(0,0,0,0.87)',
     textOnPrimaryBg: '#ffffff',
     sectionBorder: '#ededed',
+    articleDefaultBg: '#0d47a1',
   },
   screen: {
     sm: '640px',

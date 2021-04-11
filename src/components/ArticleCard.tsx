@@ -1,15 +1,17 @@
+import React from 'react'
 import styled from 'styled-components'
 import snippets from '../styles/snippets'
 import { hexToRgba } from '../utils/unitConverter'
-import React from 'react'
+import Img from './Img'
 
 const Wrapper = styled.a<React.HTMLAttributes<HTMLAnchorElement>>`
   display: block;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.23);
-  background-color: #000000;
+  background-color: ${(props) => props.theme.colors.articleDefaultBg};
 `
 
 const Article = styled.article`
+  position: relative;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -21,11 +23,31 @@ const Article = styled.article`
   }
 `
 
-const Info = styled.div`
+const ArticleImage = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+`
+
+const DefaultLogo = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+`
+
+const Info = styled.div<{ stretchToFull?: boolean }>`
+  position: relative;
+  z-index: 1;
   background-color: ${(props) => hexToRgba(props.theme.colors.primary, 0.9)};
   ${snippets.colors.textOnPrimaryBg};
   padding: 10px;
   min-height: 130px;
+  flex: ${(props) => props.stretchToFull && 1};
 `
 
 const Title = styled.h3<{ isMain?: boolean; withDescription?: boolean }>`
@@ -48,18 +70,47 @@ interface ArticleCardProps extends React.HTMLAttributes<HTMLAnchorElement> {
   title: string
   description?: string
   isMain?: boolean
+  withImage?: boolean
+  image?: string
 }
 
 export default function ArticleCard({
   title,
   description,
-  isMain,
+  image,
+  isMain = false,
+  withImage = true,
   ...restProps
 }: ArticleCardProps) {
   return (
     <Wrapper {...restProps}>
       <Article>
-        <Info>
+        {withImage && !image && (
+          <DefaultLogo>
+            <Img
+              src="/static/images/logo-white.png"
+              width="142"
+              height="56"
+              alt="The Peaks logo"
+              loading="lazy"
+              objectFit="contain"
+            />
+          </DefaultLogo>
+        )}
+        {withImage && !!image && (
+          <ArticleImage>
+            <Img
+              src={image}
+              width="350"
+              height="350"
+              styleWidth="100%"
+              styleHeight="100%"
+              objectFit="cover"
+              alt={title}
+            />
+          </ArticleImage>
+        )}
+        <Info stretchToFull={!withImage}>
           <Title isMain={isMain} withDescription={!!description}>
             {title}
           </Title>

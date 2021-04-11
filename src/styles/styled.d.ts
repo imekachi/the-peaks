@@ -23,6 +23,7 @@ declare module 'styled-components' {
       textOnBody: string
       textOnPrimaryBg: string
       sectionBorder: string
+      articleDefaultBg: string
     }
     screen: {
       sm: string

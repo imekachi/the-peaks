@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import ArticleCard from '../components/ArticleCard'
+import ArticleGrid from '../components/ArticleGrid'
 import PageHeader from '../components/PageHeader'
 import snippets from '../styles/snippets'
 
@@ -30,13 +31,6 @@ const MainGrid = styled.div`
   }
 `
 
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-auto-rows: 350px;
-  grid-gap: 30px;
-`
-
 export default function Home() {
   return (
     <>
@@ -49,24 +43,18 @@ export default function Home() {
             title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000"
             description="Republican senators on Capitol Hill have expressed their dismay at a Donald Trump."
           />
+          <ArticleCard title="White House 'no regrets' about tear-gassing peaceful protesters" />
+          <ArticleCard title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000" />
           <ArticleCard
+            withImage={false}
             title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000"
-            description="Republican senators on Capitol Hill have expressed their dismay at a Donald Trump."
           />
           <ArticleCard
+            withImage={false}
             title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000"
-            description="Republican senators on Capitol Hill have expressed their dismay at a Donald Trump."
-          />
-          <ArticleCard
-            title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000"
-            description="Republican senators on Capitol Hill have expressed their dismay at a Donald Trump."
-          />
-          <ArticleCard
-            title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000"
-            description="Republican senators on Capitol Hill have expressed their dismay at a Donald Trump."
           />
         </MainGrid>
-        <Grid>
+        <ArticleGrid>
           <ArticleCard
             title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000"
             description="Republican senators on Capitol Hill have expressed their dismay at a Donald Trump."
@@ -79,11 +67,11 @@ export default function Home() {
             title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000"
             description="Republican senators on Capitol Hill have expressed their dismay at a Donald Trump."
           />
-        </Grid>
+        </ArticleGrid>
       </Section>
       <Section>
         <H2>Sports</H2>
-        <Grid>
+        <ArticleGrid>
           <ArticleCard
             title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000"
             description="Republican senators on Capitol Hill have expressed their dismay at a Donald Trump."
@@ -92,7 +80,7 @@ export default function Home() {
             title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000"
             description="Republican senators on Capitol Hill have expressed their dismay at a Donald Trump."
           />
-        </Grid>
+        </ArticleGrid>
       </Section>
     </>
   )
