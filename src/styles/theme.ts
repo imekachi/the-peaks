@@ -14,6 +14,11 @@ export const defaultTheme: DefaultTheme = Object.freeze({
     xl: '34px',
     '2xl': '48px',
   },
+  lineHeight: {
+    base: 17 / 14,
+    md: 20 / 14,
+    lg: 1.45,
+  },
   colors: {
     primary: '#09357b',
     bodyBg: '#fafafa',

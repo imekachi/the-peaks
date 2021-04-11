@@ -17,6 +17,11 @@ declare module 'styled-components' {
       xl: string
       '2xl': string
     }
+    lineHeight: {
+      base: number | string
+      md: number | string
+      lg: number | string
+    }
     colors: {
       primary: string
       bodyBg: string

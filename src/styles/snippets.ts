@@ -11,6 +11,10 @@ const fontSize = (size: keyof DefaultTheme['fontSize']) => css`
   font-size: ${(props) => props.theme.fontSize[size]};
 `
 
+const lineHeight = (size: keyof DefaultTheme['lineHeight']) => css`
+  line-height: ${(props) => props.theme.lineHeight[size]};
+`
+
 const colorPrimaryBg = css`
   background-color: ${(props) => props.theme.colors.primary};
 `
@@ -40,6 +44,14 @@ const snippets = {
       fontSize(variant),
     ])
   ) as Record<keyof DefaultTheme['fontSize'], StyledCSS>,
+  lineHeight: Object.fromEntries(
+    (Object.keys(
+      defaultTheme.lineHeight
+    ) as (keyof DefaultTheme['lineHeight'])[]).map((variant) => [
+      variant,
+      lineHeight(variant),
+    ])
+  ) as Record<keyof DefaultTheme['lineHeight'], StyledCSS>,
   colors: {
     primaryBg: colorPrimaryBg,
     textOnPrimaryBg: colorTextOnPrimaryBg,
