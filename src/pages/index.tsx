@@ -6,6 +6,7 @@ import ArticleGrid from '../components/ArticleGrid'
 import Loader from '../components/Loader'
 import PageHeader from '../components/PageHeader'
 import { getTopStories } from '../lib/api'
+import { createArticleURL } from '../lib/article'
 import snippets from '../styles/snippets'
 
 const H2 = styled.h2`
@@ -73,7 +74,7 @@ export default function Home() {
                     ? striptags(article.fields.trailText as string)
                     : undefined
                 }
-                href={`/article/${article.id}`}
+                href={createArticleURL(article.id)}
                 borderColor={topStoriesBorderColor[index]}
               />
             )
