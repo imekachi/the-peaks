@@ -23,8 +23,8 @@ const Img = styled.img.attrs<ImgInternalProps>(({ loading }) => ({
   vertical-align: ${(props) => props.verticalAlign ?? 'bottom'};
   max-width: ${(props) => props.maxWidth ?? '100%'};
   max-height: ${(props) => props.maxHeight ?? '100%'};
-  width: ${(props) => props.width};
-  height: ${(props) => props.height};
+  width: ${(props) => props.styleWidth};
+  height: ${(props) => props.styleHeight};
   object-fit: ${(props) => props.objectFit};
 `
 
