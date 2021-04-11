@@ -1,19 +1,13 @@
 import axios from 'axios'
-import { GDContentSearchItemFields, GDContentSearchResponse } from './types'
+import { GDContentAPIOptions, GDContentSearchResponse } from './types'
 
 const ENDPOINT_BASE = 'https://content.guardianapis.com'
-
-interface ContentAPIOptions {
-  'api-key'?: string
-  'page-size'?: number
-  'show-fields'?: (keyof GDContentSearchItemFields)[]
-}
 
 const defaultOptions = {
   'api-key': process.env.NEXT_PUBLIC_API_KEY as string,
 }
 
-export function createArticlesAPIEndpoint(options: ContentAPIOptions = {}) {
+export function createArticlesAPIEndpoint(options: GDContentAPIOptions = {}) {
   const { 'show-fields': showFields, ...passThroughOptions } = options
 
   const params: Record<string, string | number> = {
@@ -37,3 +31,10 @@ export const getTopStories = createArticlesAPIEndpoint({
   'page-size': 8,
   'show-fields': ['thumbnail', 'trailText'],
 })
+
+export const createAPIArticlesBySectionId = (sectionId: string) =>
+  createArticlesAPIEndpoint({
+    'page-size': 3,
+    'show-fields': ['thumbnail', 'trailText'],
+    section: sectionId,
+  })

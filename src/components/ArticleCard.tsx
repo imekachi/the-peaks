@@ -120,14 +120,17 @@ export default function ArticleCard({
               styleHeight="100%"
               objectFit="cover"
               alt={title}
+              title={title}
             />
           </ArticleImage>
         )}
         <Info stretchToFull={!withImage}>
-          <Title isMain={isMain} maxLine={titleMaxLine}>
+          <Title title={title} isMain={isMain} maxLine={titleMaxLine}>
             {title}
           </Title>
-          {!!description && <Description>{description}</Description>}
+          {!!description && (
+            <Description title={description}>{description}</Description>
+          )}
         </Info>
       </Article>
     </Wrapper>

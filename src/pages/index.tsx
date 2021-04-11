@@ -3,17 +3,11 @@ import striptags from 'striptags'
 import styled from 'styled-components'
 import ArticleCard from '../components/ArticleCard'
 import ArticleGrid from '../components/ArticleGrid'
+import ArticlesByCategory from '../components/ArticlesByCategory'
 import Loader from '../components/Loader'
 import PageHeader from '../components/PageHeader'
 import { getTopStories } from '../lib/api'
 import { createArticleURL } from '../lib/article'
-import snippets from '../styles/snippets'
-
-const H2 = styled.h2`
-  ${snippets.fontFamily.serif};
-  ${snippets.fontSize.xl};
-  margin-bottom: 30px;
-`
 
 const Section = styled.section`
   &:not(:last-child) {
@@ -35,6 +29,7 @@ const MainGrid = styled.div`
     grid-row: 1 / 3;
   }
 `
+
 const topStoriesBorderColor = [
   '#388E3C',
   '#D32F2F',
@@ -87,22 +82,19 @@ export default function Home() {
               image={article.fields.thumbnail}
               title={article.webTitle}
               description={striptags(article.fields.trailText as string)}
+              href={createArticleURL(article.id)}
             />
           ))}
         </ArticleGrid>
       </Section>
       <Section>
-        <H2>Sports</H2>
-        <ArticleGrid>
-          <ArticleCard
-            title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000"
-            description="Republican senators on Capitol Hill have expressed their dismay at a Donald Trump."
-          />
-          <ArticleCard
-            title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000"
-            description="Republican senators on Capitol Hill have expressed their dismay at a Donald Trump."
-          />
-        </ArticleGrid>
+        <ArticlesByCategory category="sport" />
+      </Section>
+      <Section>
+        <ArticlesByCategory category="culture" />
+      </Section>
+      <Section>
+        <ArticlesByCategory category="lifeandstyle" />
       </Section>
     </>
   )
