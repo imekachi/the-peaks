@@ -10,13 +10,13 @@ const Wrapper = styled.a`
   background-color: ${(props) => props.theme.colors.articleDefaultBg};
 `
 
-const Article = styled.article`
+const Article = styled.article<{ borderColor?: string }>`
   position: relative;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  border-bottom: 3px solid #d32f2f;
+  border-bottom: 3px solid ${(props) => props.borderColor ?? '#d32f2f'};
 
   > * {
     width: 100%;
@@ -46,16 +46,17 @@ const Info = styled.div<{ stretchToFull?: boolean }>`
   background-color: ${(props) => hexToRgba(props.theme.colors.primary, 0.9)};
   ${snippets.colors.textOnPrimaryBg};
   padding: 10px;
-  min-height: 130px;
+  min-height: 107px;
   flex: ${(props) => props.stretchToFull && 1};
 `
 
-const Title = styled.h3<{ isMain?: boolean; withDescription?: boolean }>`
+const Title = styled.h3<{ isMain?: boolean; maxLine?: number }>`
   display: -webkit-box;
-  -webkit-line-clamp: ${(props) => (props.withDescription ? 2 : 4)};
+  -webkit-line-clamp: ${(props) => props.maxLine};
   -webkit-box-orient: vertical;
   overflow: hidden;
   ${snippets.fontFamily.serif};
+  ${snippets.lineHeight.lg};
   font-size: ${({ theme, isMain }) =>
     isMain ? theme.fontSize.lg : theme.fontSize.md};
   font-weight: 700;
@@ -63,6 +64,11 @@ const Title = styled.h3<{ isMain?: boolean; withDescription?: boolean }>`
 
 const Description = styled.p`
   ${snippets.fontSize.base};
+  ${snippets.lineHeight.md};
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   margin-top: 5px;
 `
 
@@ -72,6 +78,7 @@ interface ArticleCardProps {
   isMain?: boolean
   withImage?: boolean
   image?: string
+  borderColor?: string
 }
 
 export default function ArticleCard({
@@ -80,11 +87,17 @@ export default function ArticleCard({
   image,
   isMain = false,
   withImage = true,
+  borderColor,
   ...restProps
 }: ArticleCardProps & React.AnchorHTMLAttributes<HTMLAnchorElement>) {
+  let titleMaxLine = 4
+  if (withImage) {
+    titleMaxLine = description ? 2 : 3
+  }
+
   return (
     <Wrapper {...restProps}>
-      <Article>
+      <Article borderColor={borderColor}>
         {withImage && !image && (
           <DefaultLogo>
             <Img
@@ -111,7 +124,7 @@ export default function ArticleCard({
           </ArticleImage>
         )}
         <Info stretchToFull={!withImage}>
-          <Title isMain={isMain} withDescription={!!description}>
+          <Title isMain={isMain} maxLine={titleMaxLine}>
             {title}
           </Title>
           {!!description && <Description>{description}</Description>}
