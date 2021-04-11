@@ -16,4 +16,8 @@ a {
 img {
   /* fix image floating */
   vertical-align: bottom;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
 }

@@ -20,9 +20,9 @@ const Img = styled.img.attrs<ImgInternalProps>(({ loading }) => ({
   loading: loading ?? 'lazy',
 }))<ImgInternalProps>`
   display: ${(props) => (props.block ? 'block' : 'inline-block')};
-  vertical-align: ${(props) => props.verticalAlign ?? 'bottom'};
-  max-width: ${(props) => props.maxWidth ?? '100%'};
-  max-height: ${(props) => props.maxHeight ?? '100%'};
+  vertical-align: ${(props) => props.verticalAlign};
+  max-width: ${(props) => props.maxWidth};
+  max-height: ${(props) => props.maxHeight};
   width: ${(props) => props.styleWidth};
   height: ${(props) => props.styleHeight};
   object-fit: ${(props) => props.objectFit};
