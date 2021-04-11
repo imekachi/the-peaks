@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import ArticleSimple from '../../components/ArticleSimple'
+import ArticleMedia from '../../components/ArticleMedia'
 import { Button } from '../../components/Button'
 import { ICON_BOOKMARK_ON } from '../../styles/icons'
 import snippets from '../../styles/snippets'
@@ -49,7 +49,7 @@ const MainContainer = styled.div`
   }
 `
 
-const SuggestArticles = styled.section`
+const MediaList = styled.section`
   margin-top: 70px;
 
   @media (min-width: ${(props) => props.theme.screen.md}) {
@@ -97,13 +97,12 @@ export default function ArticleView() {
           <Separator />
         </div>
         <Content>{mockContent}</Content>
-        <SuggestArticles>
-          <ArticleSimple
-            href="#"
+        <MediaList>
+          <ArticleMedia
             image="https://via.placeholder.com/445x267.png"
-            title="A woman walks along a flooded road amidst a storm in the Masiphumelele informal settlement in Cape Town Photograph: Nic Bothma/EPA"
+            caption="A woman walks along a flooded road amidst a storm in the Masiphumelele informal settlement in Cape Town Photograph: Nic Bothma/EPA"
           />
-        </SuggestArticles>
+        </MediaList>
       </MainContainer>
     </div>
   )

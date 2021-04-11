@@ -21,36 +21,25 @@ const Title = styled.h1`
 `
 
 interface ArticleSimpleProps {
-  href: string
-  title: string
   image: string
-  target?: '_blank' | '_self' | '_parent' | '_top'
+  caption: string
 }
 
-export default function ArticleSimple({
-  href,
-  title,
-  image,
-  target,
-}: ArticleSimpleProps) {
+export default function ArticleMedia({ image, caption }: ArticleSimpleProps) {
   return (
     <div>
-      <ImageWrapper href={href} target={target} title={title}>
+      <ImageWrapper title={caption}>
         <ImageWithRatio
           ratio={0.6}
           src={image}
-          alt={title}
+          alt={caption}
           width="445"
           height="267"
           loading="lazy"
           objectFit="cover"
         />
       </ImageWrapper>
-      <Title title={title}>
-        <a href={href} target={target}>
-          {title}
-        </a>
-      </Title>
+      <Title title={caption}>{caption}</Title>
     </div>
   )
 }
