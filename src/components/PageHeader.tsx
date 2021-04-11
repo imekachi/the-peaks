@@ -20,6 +20,7 @@ const Wrapper = styled.div`
   ${H1} {
     grid-column: 1 / 3;
   }
+
   ${Select} {
     /* always in the last column */
     grid-column-start: -2;
@@ -44,7 +45,9 @@ export default function PageHeader({
       <H1>{title}</H1>
       {showBookmarkButton && (
         <BookmarkButtonWrapper>
-          <Button>{ICON_BOOKMARK_ON}VIEW BOOKMARK</Button>
+          <Button as="a" href="/bookmark">
+            {ICON_BOOKMARK_ON}VIEW BOOKMARK
+          </Button>
         </BookmarkButtonWrapper>
       )}
       <Select>
