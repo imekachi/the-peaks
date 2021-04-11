@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import SearchBox from './SearchBox'
 
 const Wrapper = styled.nav`
+  flex-shrink: 0;
   background-color: ${(props) => props.theme.colors.primary};
   color: ${(props) => props.theme.colors.textOnPrimaryBg};
 `

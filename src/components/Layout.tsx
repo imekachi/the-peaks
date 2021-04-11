@@ -3,9 +3,18 @@ import styled from 'styled-components'
 import snippets from '../styles/snippets'
 import NavBar from './NavBar'
 
+const MainWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  min-height: 100vh;
+`
+
 const ContentContainer = styled.div`
+  width: 100%;
+  flex: 1;
   max-width: ${(props) => props.theme.screen.lg};
-  box-sizing: content-box;
   margin: auto;
   padding: 20px 15px 45px;
 
@@ -21,10 +30,10 @@ const Footer = styled.footer`
 
 export default function Layout({ children }: React.PropsWithChildren<{}>) {
   return (
-    <div>
+    <MainWrapper>
       <NavBar />
       <ContentContainer>{children}</ContentContainer>
       <Footer />
-    </div>
+    </MainWrapper>
   )
 }
