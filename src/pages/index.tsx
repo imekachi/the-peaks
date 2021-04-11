@@ -1,31 +1,7 @@
 import styled from 'styled-components'
 import ArticleCard from '../components/ArticleCard'
-import { Button } from '../components/Button'
-import { Select } from '../components/Select'
-import { ICON_BOOKMARK_ON } from '../styles/icons'
+import PageHeader from '../components/PageHeader'
 import snippets from '../styles/snippets'
-
-const H1 = styled.h1`
-  ${snippets.fontFamily.serif};
-  ${snippets.fontSize['2xl']};
-  margin: 0;
-`
-
-const Header = styled.div`
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-gap: 30px;
-  margin-bottom: 30px;
-  align-items: flex-end;
-
-  ${H1} {
-    grid-column: 1 / 3;
-  }
-`
-
-const BookmarkButtonWrapper = styled.div`
-  text-align: right;
-`
 
 const H2 = styled.h2`
   ${snippets.fontFamily.serif};
@@ -63,19 +39,9 @@ const Grid = styled.div`
 
 export default function Home() {
   return (
-    <div>
+    <>
+      <PageHeader title="Top stories" showBookmarkButton />
       <Section>
-        <Header>
-          <H1>Top stories</H1>
-          <BookmarkButtonWrapper>
-            <Button>{ICON_BOOKMARK_ON}VIEW BOOKMARK</Button>
-          </BookmarkButtonWrapper>
-          <Select>
-            <option value="newest">Newest first</option>
-            <option value="oldest">Oldest first</option>
-            <option value="popular">Most popular</option>
-          </Select>
-        </Header>
         <MainGrid>
           <ArticleCard
             isMain
@@ -128,6 +94,6 @@ export default function Home() {
           />
         </Grid>
       </Section>
-    </div>
+    </>
   )
 }

@@ -4,9 +4,10 @@ h1, h2, h3, p, hr {
 button, hr {
   border: 0 none;
 }
-button {
+button, select {
   outline: none;
   cursor: pointer;
+  background: none;
 }
 a {
   text-decoration: none;
