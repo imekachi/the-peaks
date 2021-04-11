@@ -4,7 +4,7 @@ import snippets from '../styles/snippets'
 import { hexToRgba } from '../utils/unitConverter'
 import Img from './Img'
 
-const Wrapper = styled.a<React.HTMLAttributes<HTMLAnchorElement>>`
+const Wrapper = styled.a`
   display: block;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.23);
   background-color: ${(props) => props.theme.colors.articleDefaultBg};
@@ -66,7 +66,7 @@ const Description = styled.p`
   margin-top: 5px;
 `
 
-interface ArticleCardProps extends React.HTMLAttributes<HTMLAnchorElement> {
+interface ArticleCardProps {
   title: string
   description?: string
   isMain?: boolean
@@ -81,7 +81,7 @@ export default function ArticleCard({
   isMain = false,
   withImage = true,
   ...restProps
-}: ArticleCardProps) {
+}: ArticleCardProps & React.AnchorHTMLAttributes<HTMLAnchorElement>) {
   return (
     <Wrapper {...restProps}>
       <Article>

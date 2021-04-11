@@ -42,6 +42,7 @@ export default function Home() {
             className="main"
             title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000"
             description="Republican senators on Capitol Hill have expressed their dismay at a Donald Trump."
+            href="/article/1"
           />
           <ArticleCard title="White House 'no regrets' about tear-gassing peaceful protesters" />
           <ArticleCard title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000" />
