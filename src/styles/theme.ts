@@ -18,6 +18,7 @@ export const defaultTheme: DefaultTheme = Object.freeze({
     base: 17 / 14,
     md: 20 / 14,
     lg: 1.45,
+    xl: 1.5,
   },
   colors: {
     primary: '#09357b',
@@ -26,6 +27,7 @@ export const defaultTheme: DefaultTheme = Object.freeze({
     textOnPrimaryBg: '#ffffff',
     sectionBorder: '#ededed',
     articleDefaultBg: '#0d47a1',
+    link: '#0e52be',
   },
   screen: {
     sm: '640px',

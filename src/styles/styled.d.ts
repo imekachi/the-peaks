@@ -21,6 +21,7 @@ declare module 'styled-components' {
       base: number | string
       md: number | string
       lg: number | string
+      xl: number | string
     }
     colors: {
       primary: string
@@ -29,6 +30,7 @@ declare module 'styled-components' {
       textOnPrimaryBg: string
       sectionBorder: string
       articleDefaultBg: string
+      link: string
     }
     screen: {
       sm: string
