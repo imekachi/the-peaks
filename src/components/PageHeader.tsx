@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { GDOrdering } from '../lib/types'
 import { ICON_BOOKMARK_ON } from '../styles/icons'
 import snippets from '../styles/snippets'
 import { Button } from './Button'
@@ -34,11 +35,15 @@ const BookmarkButtonWrapper = styled.div`
 interface PageHeaderProps {
   title: string
   showBookmarkButton?: boolean
+  orderBy?: GDOrdering
+  onChangeOrdering?: (orderBy: GDOrdering) => void
 }
 
 export default function PageHeader({
   title,
   showBookmarkButton,
+  orderBy = GDOrdering.newest,
+  onChangeOrdering,
 }: PageHeaderProps) {
   return (
     <Wrapper>
@@ -50,10 +55,14 @@ export default function PageHeader({
           </Button>
         </BookmarkButtonWrapper>
       )}
-      <Select>
-        <option value="newest">Newest first</option>
-        <option value="oldest">Oldest first</option>
-        <option value="popular">Most popular</option>
+      <Select
+        value={orderBy}
+        onChange={(event) => {
+          onChangeOrdering?.(event.target.value as GDOrdering)
+        }}
+      >
+        <option value={GDOrdering.newest}>Newest first</option>
+        <option value={GDOrdering.oldest}>Oldest first</option>
       </Select>
     </Wrapper>
   )

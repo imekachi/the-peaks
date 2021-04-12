@@ -1,4 +1,8 @@
-export type GDOrdering = 'newest' | 'oldest' | 'relevance'
+export enum GDOrdering {
+  newest = 'newest',
+  oldest = 'oldest',
+  relevance = 'relevance',
+}
 
 export interface GDContentSearchItemFields {
   thumbnail?: string
@@ -29,5 +33,6 @@ export interface GDContentAPIOptions {
   'api-key'?: string
   'page-size'?: number
   'show-fields'?: (keyof GDContentSearchItemFields)[]
+  'order-by'?: GDOrdering
   section?: string
 }

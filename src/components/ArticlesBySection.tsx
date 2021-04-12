@@ -3,6 +3,7 @@ import striptags from 'striptags'
 import styled from 'styled-components'
 import { createAPIArticlesBySectionId } from '../lib/api'
 import { createArticleURL } from '../lib/article'
+import { GDOrdering } from '../lib/types'
 import snippets from '../styles/snippets'
 import ArticleCard from './ArticleCard'
 import ArticleGrid from './ArticleGrid'
@@ -15,15 +16,18 @@ const H2 = styled.h2`
 `
 
 interface ArticlesByCategoryProps {
-  category: string
+  sectionId: string
+  orderBy?: GDOrdering
 }
 
-export default function ArticlesByCategory({
-  category,
+export default function ArticlesBySection({
+  sectionId,
+  orderBy,
 }: ArticlesByCategoryProps) {
+  const queryParams = { sectionId, orderBy }
   const query = useQuery(
-    `articlesByCategory:${category}`,
-    createAPIArticlesBySectionId(category)
+    [`articlesByCategory`, queryParams],
+    createAPIArticlesBySectionId(queryParams)
   )
 
   if (query.isLoading || !query.isSuccess) return <Loader />

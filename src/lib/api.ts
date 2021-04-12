@@ -1,5 +1,9 @@
 import axios from 'axios'
-import { GDContentAPIOptions, GDContentSearchResponse } from './types'
+import {
+  GDContentAPIOptions,
+  GDContentSearchResponse,
+  GDOrdering,
+} from './types'
 
 const ENDPOINT_BASE = 'https://content.guardianapis.com'
 
@@ -27,14 +31,27 @@ export function createArticlesAPIEndpoint(options: GDContentAPIOptions = {}) {
       .then((res) => res.data?.response)
 }
 
-export const getTopStories = createArticlesAPIEndpoint({
-  'page-size': 8,
-  'show-fields': ['thumbnail', 'trailText'],
-})
+export const createAPITopStories = ({
+  orderBy = GDOrdering.newest,
+}: {
+  orderBy?: GDOrdering
+}) =>
+  createArticlesAPIEndpoint({
+    'page-size': 8,
+    'show-fields': ['thumbnail', 'trailText'],
+    'order-by': orderBy,
+  })
 
-export const createAPIArticlesBySectionId = (sectionId: string) =>
+export const createAPIArticlesBySectionId = ({
+  sectionId,
+  orderBy = GDOrdering.newest,
+}: {
+  sectionId: string
+  orderBy?: GDOrdering
+}) =>
   createArticlesAPIEndpoint({
     'page-size': 3,
     'show-fields': ['thumbnail', 'trailText'],
     section: sectionId,
+    'order-by': orderBy,
   })

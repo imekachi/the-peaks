@@ -2,6 +2,8 @@ import styled from 'styled-components'
 import snippets from '../styles/snippets'
 
 export const Button = styled.button`
+  display: inline-block;
+  vertical-align: middle;
   ${snippets.colors.primaryBg};
   ${snippets.colors.textOnPrimaryBg};
   ${snippets.fontFamily.sans};
