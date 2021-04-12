@@ -2,10 +2,9 @@ import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import { useQuery } from 'react-query'
 import styled from 'styled-components'
-import { Button } from '../../components/Button'
+import BookmarkButton from '../../components/BookmarkButton'
 import Loader from '../../components/Loader'
 import { createAPIArticleView } from '../../lib/api'
-import { ICON_BOOKMARK_ON } from '../../styles/icons'
 import snippets from '../../styles/snippets'
 
 const Timestamp = styled.div`
@@ -121,7 +120,7 @@ export default function ArticleView() {
 
   return (
     <div>
-      <Button>{ICON_BOOKMARK_ON} ADD BOOKMARK</Button>
+      <BookmarkButton articleId={articleId} />
       <Timestamp>{dateTimeFormatter(content.webPublicationDate)}</Timestamp>
       <MainContainer>
         <div>
