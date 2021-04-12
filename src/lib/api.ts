@@ -21,6 +21,7 @@ export function createArticlesAPIEndpoint<GDExpectedResponse>(
     'order-by'?: GDOrdering
     'show-elements'?: 'all' | ('image' | 'video' | 'audio')[]
     section?: string
+    ids?: string
   } = {}
 ) {
   // Pull 'show-fields' out of options, we'll need to transform it before sending it as a param
@@ -67,6 +68,17 @@ export const createAPITopStories = ({
     'page-size': 8,
     'show-fields': ['thumbnail', 'trailText'],
     'order-by': orderBy,
+  })
+
+export const createAPIArticlesByIds = ({
+  articleIds,
+}: {
+  articleIds: string[]
+}) =>
+  createArticlesAPIEndpoint<GDContentSearchResponse>({
+    endpointPath: GDAPIPath.content,
+    'show-fields': ['thumbnail', 'trailText'],
+    ids: articleIds.join(','),
   })
 
 export const createAPIArticlesBySectionId = ({
