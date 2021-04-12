@@ -1,11 +1,10 @@
 import axios from 'axios'
+import { ENDPOINT_BASE } from '../config/api'
 import {
   GDContentAPIOptions,
   GDContentSearchResponse,
   GDOrdering,
 } from './types'
-
-const ENDPOINT_BASE = 'https://content.guardianapis.com'
 
 const defaultOptions = {
   'api-key': process.env.NEXT_PUBLIC_API_KEY as string,

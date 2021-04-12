@@ -7,6 +7,7 @@ import ArticleGrid from '../components/ArticleGrid'
 import ArticlesBySection from '../components/ArticlesBySection'
 import Loader from '../components/Loader'
 import PageHeader from '../components/PageHeader'
+import { DEFAULT_QUERY_STALE_TIME } from '../config/api'
 import { createAPITopStories } from '../lib/api'
 import { createArticleURL } from '../lib/article'
 import { GDOrdering } from '../lib/types'
@@ -45,7 +46,8 @@ export default function Home() {
   const queryParams = { orderBy }
   const query = useQuery(
     ['topStories', queryParams],
-    createAPITopStories(queryParams)
+    createAPITopStories(queryParams),
+    { staleTime: DEFAULT_QUERY_STALE_TIME }
   )
 
   if (query.isLoading || !query.isSuccess) {
