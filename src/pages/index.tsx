@@ -53,6 +53,7 @@ export default function Home() {
   if (query.isLoading || !query.isSuccess) {
     return <Loader />
   }
+  // TODO: handle errors
 
   return (
     <>

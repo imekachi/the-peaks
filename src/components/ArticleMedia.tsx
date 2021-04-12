@@ -6,17 +6,13 @@ const ImageWrapper = styled.a`
   display: block;
 `
 
-const Title = styled.h1`
+const Caption = styled.h1`
   ${snippets.fontSize.base};
   margin-top: 10px;
   opacity: 50%;
 
   &:hover {
     opacity: 100%;
-  }
-
-  > a {
-    ${snippets.colors.textOnBody};
   }
 `
 
@@ -39,7 +35,7 @@ export default function ArticleMedia({ image, caption }: ArticleSimpleProps) {
           objectFit="cover"
         />
       </ImageWrapper>
-      <Title title={caption}>{caption}</Title>
+      <Caption title={caption}>{caption}</Caption>
     </div>
   )
 }
