@@ -2,21 +2,23 @@ import { useMemo, useState } from 'react'
 import { useQuery } from 'react-query'
 import ArticleCard from '../components/ArticleCard'
 import ArticleGrid from '../components/ArticleGrid'
-import { MessageBox } from '../components/MessageBox'
 import Loader from '../components/Loader'
+import { MessageBox } from '../components/MessageBox'
 import PageHeader from '../components/PageHeader'
+import { useIsMounted } from '../hooks/useIsMounted'
 import { createAPIArticlesByIds } from '../lib/api'
 import { createArticleURL } from '../lib/article'
 import { bookmarkStorage } from '../lib/bookmark'
 import { GDOrdering } from '../lib/types'
 
 export default function Bookmark() {
+  const isMounted = useIsMounted()
   const [orderBy, setOrderBy] = useState(GDOrdering.newest)
   // Client storage is only accessible on client,
-  // checking `process.browser` prevents SSR error,
+  // checking `isMounted` to prevents SSR and hydration error,
   const savedArticles = useMemo(
-    () => (process.browser ? bookmarkStorage.read() : []),
-    []
+    () => (isMounted ? bookmarkStorage.read() : []),
+    [isMounted]
   )
 
   const isEmptyBookmark = savedArticles.length < 1
@@ -26,7 +28,7 @@ export default function Bookmark() {
   const query = useQuery(
     ['bookmarkArticles', queryParams],
     createAPIArticlesByIds(queryParams),
-    { enabled: process.browser && !isEmptyBookmark }
+    { enabled: isMounted && !isEmptyBookmark }
   )
 
   const sortedArticles = useMemo(() => {
@@ -49,9 +51,8 @@ export default function Bookmark() {
     )
   }, [orderBy, query.data])
 
-  console.log(`> query: `, query)
   if (
-    !process.browser ||
+    !isMounted ||
     (!isEmptyBookmark && (query.isLoading || !query.isSuccess))
   ) {
     return <Loader />
