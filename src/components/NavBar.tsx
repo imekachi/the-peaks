@@ -1,3 +1,4 @@
+import NextLink from 'next/link'
 import styled from 'styled-components'
 import SearchBox from './SearchBox'
 
@@ -42,15 +43,17 @@ export default function NavBar() {
   return (
     <Wrapper>
       <Container>
-        <Logo href="/" title="Home | The Peaks">
-          <img
-            src="/static/images/logo-white.png"
-            alt="The Peaks Logo"
-            width="142"
-            height="56"
-            loading="lazy"
-          />
-        </Logo>
+        <NextLink href="/" passHref>
+          <Logo title="Home | The Peaks">
+            <img
+              src="/static/images/logo-white.png"
+              alt="The Peaks Logo"
+              width="142"
+              height="56"
+              loading="lazy"
+            />
+          </Logo>
+        </NextLink>
         <SearchWrapper>
           <SearchBox />
         </SearchWrapper>

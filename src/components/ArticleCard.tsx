@@ -1,3 +1,4 @@
+import NextLink, { LinkProps } from 'next/link'
 import React from 'react'
 import styled from 'styled-components'
 import snippets from '../styles/snippets'
@@ -79,6 +80,7 @@ interface ArticleCardProps {
   withImage?: boolean
   image?: string
   borderColor?: string
+  href: LinkProps['href']
 }
 
 export default function ArticleCard({
@@ -88,6 +90,7 @@ export default function ArticleCard({
   isMain = false,
   withImage = true,
   borderColor,
+  href,
   ...restProps
 }: ArticleCardProps & React.AnchorHTMLAttributes<HTMLAnchorElement>) {
   let titleMaxLine = 4
@@ -96,43 +99,45 @@ export default function ArticleCard({
   }
 
   return (
-    <Wrapper {...restProps}>
-      <Article borderColor={borderColor}>
-        {withImage && !image && (
-          <DefaultLogo>
-            <Img
-              src="/static/images/logo-white.png"
-              width="142"
-              height="56"
-              alt="The Peaks logo"
-              loading="lazy"
-              objectFit="contain"
-            />
-          </DefaultLogo>
-        )}
-        {withImage && !!image && (
-          <ArticleImage>
-            <Img
-              src={image}
-              width="350"
-              height="350"
-              styleWidth="100%"
-              styleHeight="100%"
-              objectFit="cover"
-              alt={title}
-              title={title}
-            />
-          </ArticleImage>
-        )}
-        <Info stretchToFull={!withImage}>
-          <Title title={title} isMain={isMain} maxLine={titleMaxLine}>
-            {title}
-          </Title>
-          {!!description && (
-            <Description title={description}>{description}</Description>
+    <NextLink href={href} passHref>
+      <Wrapper {...restProps}>
+        <Article borderColor={borderColor}>
+          {withImage && !image && (
+            <DefaultLogo>
+              <Img
+                src="/static/images/logo-white.png"
+                width="142"
+                height="56"
+                alt="The Peaks logo"
+                loading="lazy"
+                objectFit="contain"
+              />
+            </DefaultLogo>
           )}
-        </Info>
-      </Article>
-    </Wrapper>
+          {withImage && !!image && (
+            <ArticleImage>
+              <Img
+                src={image}
+                width="350"
+                height="350"
+                styleWidth="100%"
+                styleHeight="100%"
+                objectFit="cover"
+                alt={title}
+                title={title}
+              />
+            </ArticleImage>
+          )}
+          <Info stretchToFull={!withImage}>
+            <Title title={title} isMain={isMain} maxLine={titleMaxLine}>
+              {title}
+            </Title>
+            {!!description && (
+              <Description title={description}>{description}</Description>
+            )}
+          </Info>
+        </Article>
+      </Wrapper>
+    </NextLink>
   )
 }

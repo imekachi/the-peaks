@@ -1,3 +1,4 @@
+import NextLink from 'next/link'
 import styled from 'styled-components'
 import { GDOrdering } from '../lib/types'
 import { ICON_BOOKMARK_ON } from '../styles/icons'
@@ -50,9 +51,9 @@ export default function PageHeader({
       <H1>{title}</H1>
       {showBookmarkButton && (
         <BookmarkButtonWrapper>
-          <Button as="a" href="/bookmark">
-            {ICON_BOOKMARK_ON}VIEW BOOKMARK
-          </Button>
+          <NextLink href="/bookmark" passHref>
+            <Button as="a">{ICON_BOOKMARK_ON}VIEW BOOKMARK</Button>
+          </NextLink>
         </BookmarkButtonWrapper>
       )}
       <Select

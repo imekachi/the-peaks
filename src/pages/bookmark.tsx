@@ -8,12 +8,22 @@ export default function Bookmark() {
       <PageHeader title="All bookmark" />
       <ArticleGrid>
         <ArticleCard
+          href="#"
           title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000"
           image="https://via.placeholder.com/445x267.png"
         />
-        <ArticleCard title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000" />
-        <ArticleCard title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000" />
-        <ArticleCard title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000" />
+        <ArticleCard
+          href="#"
+          title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000"
+        />
+        <ArticleCard
+          href="#"
+          title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000"
+        />
+        <ArticleCard
+          href="#"
+          title="Coronavirus live news: markets fall over fears of long US recovery as Brazil cases top 800,000"
+        />
       </ArticleGrid>
     </div>
   )
