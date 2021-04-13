@@ -109,8 +109,6 @@ export default function ArticleView() {
     { enabled: !!articleId }
   )
 
-  console.log(`> query: `, { articleId, query })
-
   if (!articleId || query.isLoading || !query.isSuccess) return <Loader />
 
   // TODO: handle errors
