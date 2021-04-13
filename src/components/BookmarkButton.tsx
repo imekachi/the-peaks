@@ -1,6 +1,10 @@
+import { faBookmark as faBookmarkOff } from '@fortawesome/free-regular-svg-icons/faBookmark'
+import { faBookmark as faBookmarkOn } from '@fortawesome/free-solid-svg-icons/faBookmark'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { bookmarkStorage } from '../lib/bookmark'
-import { ICON_BOOKMARK_OFF, ICON_BOOKMARK_ON } from '../styles/icons'
+import { toastActions, ToastSeverity } from '../lib/slices/toast'
 import { Button } from './Button'
 
 interface BookmarkButtonProps {
@@ -8,10 +12,10 @@ interface BookmarkButtonProps {
 }
 
 export default function BookmarkButton({ articleId }: BookmarkButtonProps) {
+  const dispatch = useDispatch()
   const [isSaved, setIsSaved] = useState(
     bookmarkStorage.articleExist(bookmarkStorage.read(), articleId)
   )
-  console.log(`> isSaved: `, isSaved)
 
   return (
     <Button
@@ -20,18 +24,36 @@ export default function BookmarkButton({ articleId }: BookmarkButtonProps) {
         if (isSaved) {
           setIsSaved(false)
           bookmarkStorage.removeArticle(articleId)
-          alert('REMOVED FROM BOOKMARKS')
+          dispatch(
+            toastActions.show({
+              severity: ToastSeverity.error,
+              icon: faBookmarkOff,
+              message: 'REMOVED FROM BOOKMARKS',
+            })
+          )
         } else {
           setIsSaved(true)
           bookmarkStorage.saveArticle(articleId)
-          alert('SAVED TO BOOKMARKS')
+          dispatch(
+            toastActions.show({
+              severity: ToastSeverity.success,
+              icon: faBookmarkOn,
+              message: 'SAVED TO BOOKMARKS',
+            })
+          )
         }
       }}
     >
       {isSaved ? (
-        <>{ICON_BOOKMARK_OFF} REMOVE BOOKMARK</>
+        <>
+          <FontAwesomeIcon className="icon" icon={faBookmarkOff} />
+          REMOVE BOOKMARK
+        </>
       ) : (
-        <>{ICON_BOOKMARK_ON} ADD BOOKMARK</>
+        <>
+          <FontAwesomeIcon className="icon" icon={faBookmarkOn} />
+          ADD BOOKMARK
+        </>
       )}
     </Button>
   )

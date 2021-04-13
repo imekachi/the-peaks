@@ -1,7 +1,8 @@
+import { faBookmark as faBookmarkOn } from '@fortawesome/free-solid-svg-icons/faBookmark'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import NextLink from 'next/link'
 import styled from 'styled-components'
 import { GDOrdering } from '../lib/types'
-import { ICON_BOOKMARK_ON } from '../styles/icons'
 import snippets from '../styles/snippets'
 import { Button } from './Button'
 import { Select } from './Select'
@@ -52,7 +53,10 @@ export default function PageHeader({
       {showBookmarkButton && (
         <BookmarkButtonWrapper>
           <NextLink href="/bookmark" passHref>
-            <Button as="a">{ICON_BOOKMARK_ON}VIEW BOOKMARK</Button>
+            <Button as="a">
+              <FontAwesomeIcon className="icon" icon={faBookmarkOn} />
+              VIEW BOOKMARK
+            </Button>
           </NextLink>
         </BookmarkButtonWrapper>
       )}
