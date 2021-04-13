@@ -16,6 +16,7 @@ export function createArticlesAPIEndpoint<GDExpectedResponse>(
   options: {
     endpointPath?: string
     'api-key'?: string
+    page?: number
     'page-size'?: number
     'show-fields'?: (keyof GDContentSearchItemFields)[]
     'order-by'?: GDOrdering
@@ -85,15 +86,18 @@ export const createAPIArticlesByIds = ({
 
 export const createAPIArticleSearch = ({
   searchQuery,
+  page = 1,
   orderBy = GDOrdering.newest,
 }: {
   searchQuery: string
-  orderBy: GDOrdering
+  page?: number
+  orderBy?: GDOrdering
 }) =>
   createArticlesAPIEndpoint<GDContentSearchResponse>({
     endpointPath: GDAPIPath.content,
     q: searchQuery ? encodeURIComponent(searchQuery) : '',
-    'page-size': 9,
+    page,
+    'page-size': 15,
     'show-fields': ['thumbnail', 'trailText'],
     'order-by': orderBy,
   })
