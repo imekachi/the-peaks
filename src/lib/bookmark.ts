@@ -49,7 +49,6 @@ export interface BookmarkStorage {
 // TODO: add tests
 export const bookmarkStorage: BookmarkStorage = {
   articleExist: (savedArticles, articleId) => {
-    console.log(`> articleExist`)
     if (!savedArticles) return false
     return savedArticles.some((article) => article.id === articleId)
   },
