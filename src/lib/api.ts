@@ -22,6 +22,7 @@ export function createArticlesAPIEndpoint<GDExpectedResponse>(
     'show-elements'?: 'all' | ('image' | 'video' | 'audio')[]
     section?: string
     ids?: string
+    q?: string
   } = {}
 ) {
   // Pull 'show-fields' out of options, we'll need to transform it before sending it as a param
@@ -77,8 +78,24 @@ export const createAPIArticlesByIds = ({
 }) =>
   createArticlesAPIEndpoint<GDContentSearchResponse>({
     endpointPath: GDAPIPath.content,
-    'show-fields': ['thumbnail', 'trailText'],
     ids: articleIds.join(','),
+    'page-size': 100,
+    'show-fields': ['thumbnail', 'trailText'],
+  })
+
+export const createAPIArticleSearch = ({
+  searchQuery,
+  orderBy = GDOrdering.newest,
+}: {
+  searchQuery: string
+  orderBy: GDOrdering
+}) =>
+  createArticlesAPIEndpoint<GDContentSearchResponse>({
+    endpointPath: GDAPIPath.content,
+    q: searchQuery ? encodeURIComponent(searchQuery) : '',
+    'page-size': 9,
+    'show-fields': ['thumbnail', 'trailText'],
+    'order-by': orderBy,
   })
 
 export const createAPIArticlesBySectionId = ({
@@ -90,10 +107,10 @@ export const createAPIArticlesBySectionId = ({
 }) =>
   createArticlesAPIEndpoint<GDContentSearchResponse>({
     endpointPath: GDAPIPath.content,
-    'page-size': 3,
-    'show-fields': ['thumbnail', 'trailText'],
     section: sectionId,
     'order-by': orderBy,
+    'page-size': 3,
+    'show-fields': ['thumbnail', 'trailText'],
   })
 
 export const createAPIArticleView = (articleId: string) =>

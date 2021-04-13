@@ -18,7 +18,8 @@ const Container = styled.div`
   box-sizing: content-box;
 
   @media (min-width: ${(props) => props.theme.screen.sm}) {
-    padding: 35px 30px;
+    height: 126px;
+    padding: 0 30px;
   }
 `
 

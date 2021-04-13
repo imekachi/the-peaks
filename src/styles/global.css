@@ -1,13 +1,18 @@
 h1, h2, h3, p, hr {
   margin: 0;
 }
-button, hr {
+input {
+  padding: 0;
+}
+button, hr, input {
   border: 0 none;
 }
-button, select {
+button, select, input {
   outline: none;
-  cursor: pointer;
   background: none;
+}
+button, select {
+  cursor: pointer;
 }
 a {
   text-decoration: none;
