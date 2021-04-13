@@ -1,3 +1,4 @@
+import React from 'react'
 import styled, { keyframes } from 'styled-components'
 
 const rotateAnimation = keyframes`
@@ -53,15 +54,15 @@ const Spinner = styled.div`
 `
 // Actually I'd prefer skeletons over spinner
 // but just follow the design.
-export default function Loader() {
-  return (
-    <Wrapper>
-      <Spinner>
-        <div />
-        <div />
-        <div />
-        Loading...
-      </Spinner>
-    </Wrapper>
-  )
-}
+const Loader = React.forwardRef<HTMLDivElement>((props, ref) => (
+  <Wrapper ref={ref}>
+    <Spinner>
+      <div />
+      <div />
+      <div />
+      Loading...
+    </Spinner>
+  </Wrapper>
+))
+
+export default Loader
