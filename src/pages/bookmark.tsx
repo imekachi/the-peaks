@@ -1,7 +1,9 @@
+import { AxiosError } from 'axios'
 import { useMemo, useState } from 'react'
 import { useQuery } from 'react-query'
 import ArticleCard from '../components/ArticleCard'
 import ArticleGrid from '../components/ArticleGrid'
+import ErrorMessage from '../components/ErrorMessage'
 import Loader from '../components/Loader'
 import { MessageBox } from '../components/MessageBox'
 import PageHeader from '../components/PageHeader'
@@ -10,7 +12,7 @@ import { useIsMounted } from '../hooks/useIsMounted'
 import { createAPIArticlesByIds } from '../lib/api'
 import { createArticleURL } from '../lib/article'
 import { bookmarkStorage } from '../lib/bookmark'
-import { GDOrdering } from '../lib/types'
+import { GDContentSearchResponse, GDOrdering } from '../lib/types'
 
 const pageTitle = 'All Bookmark'
 export default function Bookmark() {
@@ -27,11 +29,12 @@ export default function Bookmark() {
   const queryParams = {
     articleIds: savedArticles.map((savedArticle) => savedArticle.id),
   }
-  const query = useQuery(
-    ['bookmarkArticles', queryParams],
-    createAPIArticlesByIds(queryParams),
-    { enabled: isMounted && !isEmptyBookmark }
-  )
+  const query = useQuery<
+    GDContentSearchResponse,
+    AxiosError<GDContentSearchResponse>
+  >(['bookmarkArticles', queryParams], createAPIArticlesByIds(queryParams), {
+    enabled: isMounted && !isEmptyBookmark,
+  })
 
   const sortedArticles = useMemo(() => {
     if (!query.data) return []
@@ -55,7 +58,7 @@ export default function Bookmark() {
 
   if (
     !isMounted ||
-    (!isEmptyBookmark && (query.isLoading || !query.isSuccess))
+    (!isEmptyBookmark && (query.isLoading || !query.isFetched))
   ) {
     return (
       <>
@@ -63,6 +66,10 @@ export default function Bookmark() {
         <Loader />
       </>
     )
+  }
+
+  if (query.isError) {
+    return <ErrorMessage message={query.error.message} />
   }
 
   return (

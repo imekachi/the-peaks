@@ -7,6 +7,7 @@ declare module 'styled-components' {
     fontFamily: {
       serif: string
       sans: string
+      mono: string
     }
     fontSize: {
       xs: string

@@ -1,11 +1,14 @@
+import { AxiosError } from 'axios'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import { useQuery } from 'react-query'
 import styled from 'styled-components'
 import BookmarkButton from '../../components/BookmarkButton'
+import ErrorMessage from '../../components/ErrorMessage'
 import Loader from '../../components/Loader'
 import PageTitle from '../../components/PageTitle'
 import { createAPIArticleView } from '../../lib/api'
+import { GDSingleItemResponse } from '../../lib/types'
 import media from '../../styles/mediaQuery'
 import snippets from '../../styles/snippets'
 
@@ -114,13 +117,14 @@ export default function ArticleView() {
     }
   }, [router.query])
 
-  const query = useQuery(
-    ['articleView', articleId],
-    createAPIArticleView(articleId as string),
-    { enabled: !!articleId }
-  )
+  const query = useQuery<
+    GDSingleItemResponse,
+    AxiosError<GDSingleItemResponse>
+  >(['articleView', articleId], createAPIArticleView(articleId as string), {
+    enabled: !!articleId,
+  })
 
-  if (!articleId || query.isLoading || !query.isSuccess) {
+  if (!articleId || query.isLoading || !query.isFetched) {
     return (
       <>
         <PageTitle title="Loading article..." />
@@ -129,7 +133,9 @@ export default function ArticleView() {
     )
   }
 
-  // TODO: handle errors
+  if (query.isError) {
+    return <ErrorMessage message={query.error.message} />
+  }
 
   // At this point query.data should have a response
   const { content } = query.data as NonNullable<typeof query.data>

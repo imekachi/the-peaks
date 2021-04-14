@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useInfiniteQuery } from 'react-query'
 import ArticleCard from '../components/ArticleCard'
 import ArticleGrid from '../components/ArticleGrid'
+import ErrorMessage from '../components/ErrorMessage'
 import Loader from '../components/Loader'
 import { MessageBox } from '../components/MessageBox'
 import PageHeader from '../components/PageHeader'
@@ -100,9 +101,7 @@ export default function SearchArticle({ queryString }: SearchArticleProps) {
   }
 
   if (query.isError) {
-    return (
-      <MessageBox>Something went wrong: “{query.error.message}”</MessageBox>
-    )
+    return <ErrorMessage message={query.error.message} />
   }
 
   if (!searchQuery) {

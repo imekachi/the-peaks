@@ -4,6 +4,7 @@ export const defaultTheme: DefaultTheme = Object.freeze({
   fontFamily: {
     serif: 'Georgia, "Times New Roman", serif',
     sans: 'Roboto, "Helvetica Neue", Arial, sans-serif',
+    mono: 'Menlo, Monaco, Consolas,, "Courier New", monospace',
   },
   fontSize: {
     xs: '12px',
