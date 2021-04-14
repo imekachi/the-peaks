@@ -5,14 +5,16 @@ import striptags from 'striptags'
 import styled from 'styled-components'
 import ArticleCard from '../components/ArticleCard'
 import ArticleGrid from '../components/ArticleGrid'
-import ArticlesBySection from '../components/ArticlesBySection'
+import ArticlesBySection, {
+  ArticlesByCategoryProps,
+} from '../components/ArticlesBySection'
 import ErrorMessage from '../components/ErrorMessage'
 import Loader from '../components/Loader'
 import { MessageBox } from '../components/MessageBox'
 import PageHeader from '../components/PageHeader'
 import PageTitle from '../components/PageTitle'
 import { DEFAULT_QUERY_STALE_TIME } from '../config/api'
-import { createAPITopStories } from '../lib/api'
+import { createAPIArticlesBySectionId, createAPITopStories } from '../lib/api'
 import { createArticleURL } from '../lib/article'
 import { GDContentSearchResponse, GDOrdering } from '../lib/types'
 import media from '../styles/mediaQuery'
@@ -56,7 +58,23 @@ const topStoriesBorderColor = [
   '#388e3c',
 ]
 
-export default function Home() {
+const articleSections = ['sport', 'culture', 'lifeandstyle'] as const
+type ArticleSectionId = typeof articleSections[number]
+
+interface HomeProps {
+  preloadedResponse?: GDContentSearchResponse | null
+  preloadedArticleBySectionIds?: {
+    [key in ArticleSectionId]:
+      | ArticlesByCategoryProps['preloadedResponse']
+      | undefined
+  }
+}
+
+export default function Home({
+  preloadedResponse,
+  preloadedArticleBySectionIds,
+}: HomeProps) {
+  console.log(`> preloadedResponse: `, preloadedResponse)
   const [orderBy, setOrderBy] = useState<GDOrdering>(GDOrdering.newest)
   const queryParams = { orderBy }
   const query = useQuery<
@@ -64,9 +82,12 @@ export default function Home() {
     AxiosError<GDContentSearchResponse>
   >(['topStories', queryParams], createAPITopStories(queryParams), {
     staleTime: DEFAULT_QUERY_STALE_TIME,
+    // If preloadedResponse is falsy,
+    // convert it to undefined, to fetch again on client side
+    initialData: preloadedResponse || undefined,
   })
 
-  if (query.isLoading || !query.isFetched) {
+  if (!query.isSuccess && (query.isLoading || !query.isFetched)) {
     return <Loader />
   }
   if (query.isError) {
@@ -124,15 +145,56 @@ export default function Home() {
           </ArticleGrid>
         </Section>
       )}
-      <Section>
-        <ArticlesBySection sectionId="sport" orderBy={orderBy} />
-      </Section>
-      <Section>
-        <ArticlesBySection sectionId="culture" orderBy={orderBy} />
-      </Section>
-      <Section>
-        <ArticlesBySection sectionId="lifeandstyle" orderBy={orderBy} />
-      </Section>
+      {articleSections.map((sectionId) => (
+        <Section key={sectionId}>
+          <ArticlesBySection
+            sectionId={sectionId}
+            orderBy={orderBy}
+            preloadedResponse={preloadedArticleBySectionIds?.[sectionId]}
+          />
+        </Section>
+      ))}
     </>
   )
+}
+
+export async function getStaticProps() {
+  // If something went wrong and you can't get preloadedResponse
+  // you can't send it as `undefined`, it has to be null
+  // and you'll have to handle it inside the component
+  let preloadedResponse = null
+  let preloadedArticleBySectionIds: Partial<
+    NonNullable<HomeProps['preloadedArticleBySectionIds']>
+  > = {}
+  try {
+    // Get data from API top stories
+    preloadedResponse = await createAPITopStories({
+      orderBy: GDOrdering.newest,
+    })()
+
+    // Get data from API articles by sections
+    const articlesBySectionIdsPromises = articleSections.map((sectionId) =>
+      createAPIArticlesBySectionId({
+        sectionId,
+        orderBy: GDOrdering.newest,
+      })()
+    )
+    // Resolve data promises concurrently
+    const articlesBySectionIdsResponses = await Promise.all(
+      articlesBySectionIdsPromises
+    )
+    // Map response to each sectionId
+    articleSections.forEach((sectionId, index) => {
+      preloadedArticleBySectionIds[sectionId] =
+        articlesBySectionIdsResponses[index]
+    })
+  } catch (err) {
+    console.error(`> Error! while fetching data in getStaticProps: `, err)
+  }
+
+  return {
+    props: { preloadedResponse, preloadedArticleBySectionIds },
+    // Refetch data every 20min (20 * 60)
+    revalidate: 1200,
+  }
 }
