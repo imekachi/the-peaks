@@ -5,12 +5,14 @@ import ArticleGrid from '../components/ArticleGrid'
 import Loader from '../components/Loader'
 import { MessageBox } from '../components/MessageBox'
 import PageHeader from '../components/PageHeader'
+import PageTitle from '../components/PageTitle'
 import { useIsMounted } from '../hooks/useIsMounted'
 import { createAPIArticlesByIds } from '../lib/api'
 import { createArticleURL } from '../lib/article'
 import { bookmarkStorage } from '../lib/bookmark'
 import { GDOrdering } from '../lib/types'
 
+const pageTitle = 'All Bookmark'
 export default function Bookmark() {
   const isMounted = useIsMounted()
   const [orderBy, setOrderBy] = useState(GDOrdering.newest)
@@ -55,13 +57,19 @@ export default function Bookmark() {
     !isMounted ||
     (!isEmptyBookmark && (query.isLoading || !query.isSuccess))
   ) {
-    return <Loader />
+    return (
+      <>
+        <PageTitle title={pageTitle} />
+        <Loader />
+      </>
+    )
   }
 
   return (
-    <div>
+    <>
+      <PageTitle title={pageTitle} />
       <PageHeader
-        title="All bookmark"
+        title={pageTitle}
         orderBy={orderBy}
         onChangeOrdering={setOrderBy}
       />
@@ -79,6 +87,6 @@ export default function Bookmark() {
           ))}
         </ArticleGrid>
       )}
-    </div>
+    </>
   )
 }

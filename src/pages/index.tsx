@@ -7,6 +7,7 @@ import ArticleGrid from '../components/ArticleGrid'
 import ArticlesBySection from '../components/ArticlesBySection'
 import Loader from '../components/Loader'
 import PageHeader from '../components/PageHeader'
+import PageTitle from '../components/PageTitle'
 import { DEFAULT_QUERY_STALE_TIME } from '../config/api'
 import { createAPITopStories } from '../lib/api'
 import { createArticleURL } from '../lib/article'
@@ -68,6 +69,7 @@ export default function Home() {
 
   return (
     <>
+      <PageTitle title="Home" />
       <PageHeader
         title="Top stories"
         showBookmarkButton

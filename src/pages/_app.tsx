@@ -9,6 +9,7 @@ import { Provider as ReduxProvider } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
 import GlobalToast from '../components/GlobalToast'
 import Layout from '../components/Layout'
+import PageTitle from '../components/PageTitle'
 import { reduxStore } from '../lib/redux'
 import { GlobalStyleWithTheme } from '../styles/global'
 import '../styles/global.css'
@@ -29,6 +30,7 @@ function App({ Component, pageProps }: AppProps) {
         <QueryClientProvider client={queryClientRef.current}>
           <Hydrate state={pageProps.dehydratedState}>
             <GlobalStyleWithTheme />
+            <PageTitle title="The Peaks" withSuffix={false} />
             <Layout>
               <Component {...pageProps} />
             </Layout>

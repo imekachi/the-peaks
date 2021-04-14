@@ -7,6 +7,7 @@ import ArticleGrid from '../components/ArticleGrid'
 import Loader from '../components/Loader'
 import { MessageBox } from '../components/MessageBox'
 import PageHeader from '../components/PageHeader'
+import PageTitle from '../components/PageTitle'
 import { createAPIArticleSearch } from '../lib/api'
 import { createArticleURL } from '../lib/article'
 import { GDContentSearchResponse, GDOrdering } from '../lib/types'
@@ -109,7 +110,8 @@ export default function SearchArticle({ queryString }: SearchArticleProps) {
   }
 
   return (
-    <div>
+    <>
+      <PageTitle title="Search" />
       <PageHeader
         title="Search result"
         showBookmarkButton
@@ -135,6 +137,6 @@ export default function SearchArticle({ queryString }: SearchArticleProps) {
         </ArticleGrid>
       )}
       {query.hasNextPage && <Loader ref={fetchMoreAnchorRef} />}
-    </div>
+    </>
   )
 }

@@ -4,6 +4,7 @@ import { useQuery } from 'react-query'
 import styled from 'styled-components'
 import BookmarkButton from '../../components/BookmarkButton'
 import Loader from '../../components/Loader'
+import PageTitle from '../../components/PageTitle'
 import { createAPIArticleView } from '../../lib/api'
 import media from '../../styles/mediaQuery'
 import snippets from '../../styles/snippets'
@@ -119,7 +120,14 @@ export default function ArticleView() {
     { enabled: !!articleId }
   )
 
-  if (!articleId || query.isLoading || !query.isSuccess) return <Loader />
+  if (!articleId || query.isLoading || !query.isSuccess) {
+    return (
+      <>
+        <PageTitle title="Loading article..." />
+        <Loader />
+      </>
+    )
+  }
 
   // TODO: handle errors
 
@@ -128,6 +136,7 @@ export default function ArticleView() {
 
   return (
     <div>
+      <PageTitle title={content.webTitle} />
       <BookmarkButton articleId={articleId} />
       <Timestamp>{dateTimeFormatter(content.webPublicationDate)}</Timestamp>
       <MainContainer>
