@@ -1,6 +1,7 @@
 import NextLink, { LinkProps } from 'next/link'
 import React from 'react'
 import styled from 'styled-components'
+import media from '../styles/mediaQuery'
 import snippets from '../styles/snippets'
 import { hexToRgba } from '../utils/unitConverter'
 import Img from './Img'
@@ -59,8 +60,12 @@ const Title = styled.h3<{ isMain?: boolean; maxLine?: number }>`
   ${snippets.fontFamily.serif};
   ${snippets.lineHeight.lg};
   font-size: ${({ theme, isMain }) =>
-    isMain ? theme.fontSize.lg : theme.fontSize.md};
+    isMain ? theme.fontSize.xl : theme.fontSize.lg};
   font-weight: 700;
+
+  ${({ theme, isMain }) => media.md`
+    font-size: ${isMain ? theme.fontSize['2xl'] : theme.fontSize.xl};
+  `};
 `
 
 const Description = styled.p`

@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import BookmarkButton from '../../components/BookmarkButton'
 import Loader from '../../components/Loader'
 import { createAPIArticleView } from '../../lib/api'
+import media from '../../styles/mediaQuery'
 import snippets from '../../styles/snippets'
 
 const Timestamp = styled.div`
@@ -16,17 +17,26 @@ const Timestamp = styled.div`
 
 const H1 = styled.div`
   ${snippets.fontFamily.serif};
-  ${snippets.fontSize.xl};
+  ${snippets.fontSize['2xl']};
   font-weight: 700;
   line-height: 1.14705882;
+
+  ${media.md`
+    ${snippets.fontSize['3xl']};
+  `};
 `
 
 const SubHeader = styled.p`
   ${snippets.fontFamily.serif};
-  ${snippets.fontSize.md};
+  ${snippets.fontSize.lg};
   font-weight: 700;
   line-height: 1.3;
-  margin-top: 20px;
+  margin-top: 15px;
+
+  ${media.md`
+    ${snippets.fontSize.xl};
+    margin-top: 20px;
+  `};
 `
 
 const Separator = styled.hr`

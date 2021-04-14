@@ -11,7 +11,7 @@ import Loader from './Loader'
 
 const H2 = styled.h2`
   ${snippets.fontFamily.serif};
-  ${snippets.fontSize.xl};
+  ${snippets.fontSize['3xl']};
   margin-bottom: 30px;
 `
 

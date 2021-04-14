@@ -11,6 +11,7 @@ import { DEFAULT_QUERY_STALE_TIME } from '../config/api'
 import { createAPITopStories } from '../lib/api'
 import { createArticleURL } from '../lib/article'
 import { GDOrdering } from '../lib/types'
+import media from '../styles/mediaQuery'
 
 const Section = styled.section`
   &:not(:last-child) {
@@ -20,25 +21,35 @@ const Section = styled.section`
 
 const MainGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-template-rows: 250px;
-  grid-gap: 30px;
+  grid-template-columns: 1fr;
+  grid-template-rows: 350px 250px 250px;
+  grid-row-gap: 15px;
   margin-bottom: 30px;
 
-  > .main {
-    // take column 1 - 2
-    grid-column: 1 / 3;
-    // take row 1 - 2
-    grid-row: 1 / 3;
-  }
+  ${media.md`
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-rows: 250px;
+    grid-gap: 15px;
+
+    > .main {
+      // take column 1 - 2
+      grid-column: 1 / 3;
+      // take row 1 - 2
+      grid-row: 1 / 3;
+    }
+  `};
+
+  ${media.lg`
+    grid-gap: 30px;
+  `};
 `
 
 const topStoriesBorderColor = [
-  '#388E3C',
-  '#D32F2F',
-  '#FFC107',
-  '#2196F3',
-  '#388E3C',
+  '#388e3c',
+  '#d32f2f',
+  '#ffc107',
+  '#2196f3',
+  '#388e3c',
 ]
 
 export default function Home() {
@@ -67,7 +78,7 @@ export default function Home() {
         <MainGrid>
           {query.data.results.slice(0, 5).map((article, index) => {
             // Only the first article is main article
-            const isMain = index === 1
+            const isMain = index === 0
             // First 3 articles will be shown with thumbnail
             const withImage = index < 3
             return (

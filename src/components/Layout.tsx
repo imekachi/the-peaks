@@ -6,6 +6,7 @@ import { useDelayedData } from '../hooks/useDelayedData'
 import { ReduxRootState } from '../lib/redux'
 import { articleSearchActions } from '../lib/slices/articleSearch'
 import SearchArticle from '../pages/search'
+import media from '../styles/mediaQuery'
 import snippets from '../styles/snippets'
 import NavBar from './NavBar'
 
@@ -22,11 +23,11 @@ const ContentContainer = styled.div`
   flex: 1;
   max-width: ${(props) => props.theme.screen.lg};
   margin: auto;
-  padding: 20px 15px 45px;
+  padding: 20px 10px 80px;
 
-  @media (min-width: ${(props) => props.theme.screen.sm}) {
+  ${media.md`
     padding: 45px 30px 105px;
-  }
+  `};
 `
 
 const Footer = styled.footer`

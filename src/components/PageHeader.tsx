@@ -3,20 +3,25 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import NextLink from 'next/link'
 import styled from 'styled-components'
 import { GDOrdering } from '../lib/types'
+import media from '../styles/mediaQuery'
 import snippets from '../styles/snippets'
 import { Button } from './Button'
 import { Select } from './Select'
 
 const H1 = styled.h1`
   ${snippets.fontFamily.serif};
-  ${snippets.fontSize['2xl']};
+  ${snippets.fontSize['3xl']};
   margin: 0;
+
+  ${media.md`
+    ${snippets.fontSize['4xl']};
+  `};
 `
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-gap: 30px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-gap: 10px 15px;
   margin-bottom: 30px;
   align-items: flex-end;
 
@@ -28,10 +33,24 @@ const Wrapper = styled.div`
     /* always in the last column */
     grid-column-start: -2;
   }
+
+  @media (max-width: 320px) {
+    grid-template-columns: 1fr;
+    grid-column-gap: 0;
+  }
+
+  ${media.md`
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-gap: 30px;
+  `};
 `
 
 const BookmarkButtonWrapper = styled.div`
-  text-align: right;
+  text-align: left;
+
+  ${media.md`
+    text-align: right;
+  `};
 `
 
 interface PageHeaderProps {

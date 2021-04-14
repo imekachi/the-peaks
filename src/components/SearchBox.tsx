@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { ReduxRootState } from '../lib/redux'
 import { articleSearchActions } from '../lib/slices/articleSearch'
+import media from '../styles/mediaQuery'
 import snippets from '../styles/snippets'
 
 const Input = styled.input`
@@ -25,6 +26,10 @@ const Input = styled.input`
     width: 220px;
     margin-right: 15px;
   }
+
+  ${media.md`
+    ${snippets.fontSize.md};
+  `}
 `
 
 const Wrapper = styled.div`
@@ -32,9 +37,8 @@ const Wrapper = styled.div`
   justify-content: flex-end;
   align-items: center;
   ${snippets.colors.textOnPrimaryBg};
-  padding: 0 25px;
+  padding: 0 10px;
   background-color: transparent;
-  border-bottom: 3px solid currentColor;
   transition-property: background-color, width;
   cursor: pointer;
 
@@ -47,6 +51,11 @@ const Wrapper = styled.div`
     background-color: rgba(255, 255, 255, 0.15);
     cursor: default;
   }
+
+  ${media.md`
+    border-bottom: 3px solid currentColor;
+    padding: 0 25px;
+  `};
 `
 
 const IconWrapper = styled.div``

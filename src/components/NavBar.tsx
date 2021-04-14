@@ -1,5 +1,6 @@
 import NextLink from 'next/link'
 import styled from 'styled-components'
+import media from '../styles/mediaQuery'
 import SearchBox from './SearchBox'
 
 const Wrapper = styled.nav`
@@ -14,30 +15,36 @@ const Container = styled.div`
   align-items: center;
   max-width: ${(props) => props.theme.screen.lg};
   margin: auto;
-  padding: 15px;
+  padding: 10px;
   box-sizing: content-box;
 
-  @media (min-width: ${(props) => props.theme.screen.sm}) {
+  ${media.md`
     height: 126px;
-    padding: 0 30px;
-  }
+    padding: 0 15px;
+  `};
 `
 
 const Logo = styled.a`
+  flex-shrink: 0;
   height: 30px;
+  margin-right: 10px;
 
   > img {
     height: 100%;
     width: auto;
   }
 
-  @media (min-width: ${(props) => props.theme.screen.sm}) {
+  ${media.md`
     height: 56px;
-  }
+  `}
 `
 
 const SearchWrapper = styled.div`
-  align-self: flex-end;
+  min-width: 0; // Prevent overflow children
+
+  ${media.md`
+    align-self: flex-end;
+  `};
 `
 
 export default function NavBar() {
