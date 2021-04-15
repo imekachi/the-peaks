@@ -46,7 +46,6 @@ export interface BookmarkStorage {
   ) => BookmarkStorageItem[]
 }
 
-// TODO: add tests
 export const bookmarkStorage: BookmarkStorage = {
   articleExist: (savedArticles, articleId) => {
     if (!savedArticles) return false
