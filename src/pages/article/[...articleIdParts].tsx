@@ -8,12 +8,13 @@ import BookmarkButton from '../../components/BookmarkButton'
 import ErrorMessage from '../../components/ErrorMessage'
 import Loader from '../../components/Loader'
 import PageTitle from '../../components/PageTitle'
-import { createAPIArticleView, createAPITopStories } from '../../lib/api'
+import { createAPIArticleView } from '../../lib/api'
 import {
   createArticleIdFromParts,
   getArticlePartsFromId,
 } from '../../lib/article'
-import { GDOrdering, GDSingleItemResponse } from '../../lib/types'
+import { homePageQueries } from '../../lib/homepage'
+import { GDSingleItemResponse } from '../../lib/types'
 import media from '../../styles/mediaQuery'
 import snippets from '../../styles/snippets'
 import { dateTimeFormat } from '../../utils/format'
@@ -227,13 +228,22 @@ export const getStaticPaths: GetStaticPaths<ParsedArticleViewQuery> = async () =
   let paths: { params: ParsedArticleViewQuery }[] = []
 
   try {
-    // Get data from API top stories
-    const response = await createAPITopStories({
-      orderBy: GDOrdering.newest,
-    })()
-    // Get article ids that will be shown on the homepage
-    paths = response.results.map((article) => ({
-      params: { articleIdParts: getArticlePartsFromId(article.id) },
+    // Get data from APIs that's used in homepage
+    const homepageQueries = await homePageQueries()
+    // Using Set to prevent duplicate id
+    const articleIds: Set<string> = new Set()
+
+    // Loop through every article in homepageQueries
+    // to get article ids that will be shown on the homepage
+    Object.values(homepageQueries).forEach((response) => {
+      response?.results.forEach((article) => {
+        articleIds.add(article.id)
+      })
+    })
+
+    // Convert articleIds to params for each page
+    paths = Array.from(articleIds).map((articleId) => ({
+      params: { articleIdParts: getArticlePartsFromId(articleId) },
     }))
   } catch (err) {}
 
