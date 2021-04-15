@@ -11,6 +11,7 @@ import { createAPIArticleView } from '../../lib/api'
 import { GDSingleItemResponse } from '../../lib/types'
 import media from '../../styles/mediaQuery'
 import snippets from '../../styles/snippets'
+import { dateTimeFormat } from '../../utils/format'
 
 const Timestamp = styled.div`
   ${snippets.fontFamily.sans};
@@ -144,7 +145,7 @@ export default function ArticleView() {
     <div>
       <PageTitle title={content.webTitle} />
       <BookmarkButton articleId={articleId} />
-      <Timestamp>{dateTimeFormatter(content.webPublicationDate)}</Timestamp>
+      <Timestamp>{dateTimeFormat(content.webPublicationDate)}</Timestamp>
       <MainContainer>
         <div>
           <H1>{content.webTitle}</H1>
@@ -176,23 +177,4 @@ export default function ArticleView() {
       </MainContainer>
     </div>
   )
-}
-
-function dateTimeFormatter(dateTimeString: string) {
-  const dateTime = new Date(dateTimeString)
-
-  if (dateTime.toString() === 'Invalid Date') {
-    return '-'
-  }
-
-  return dateTime.toLocaleString('en-GB', {
-    weekday: 'short',
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    timeZoneName: 'short',
-    hour12: false,
-  })
 }
