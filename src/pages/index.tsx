@@ -63,11 +63,10 @@ type ArticleSectionId = typeof articleSections[number]
 
 interface HomeProps {
   preloadedResponse?: GDContentSearchResponse | null
-  preloadedArticleBySectionIds?: {
-    [key in ArticleSectionId]:
-      | ArticlesByCategoryProps['preloadedResponse']
-      | undefined
-  }
+  preloadedArticleBySectionIds?: Record<
+    ArticleSectionId,
+    ArticlesByCategoryProps['preloadedResponse'] | null
+  >
 }
 
 export default function Home({
