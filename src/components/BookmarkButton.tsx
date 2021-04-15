@@ -1,7 +1,7 @@
 import { faBookmark as faBookmarkOff } from '@fortawesome/free-regular-svg-icons/faBookmark'
 import { faBookmark as faBookmarkOn } from '@fortawesome/free-solid-svg-icons/faBookmark'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { bookmarkStorage } from '../lib/bookmark'
 import { toastActions, ToastSeverity } from '../lib/slices/toast'
@@ -13,9 +13,13 @@ interface BookmarkButtonProps {
 
 export default function BookmarkButton({ articleId }: BookmarkButtonProps) {
   const dispatch = useDispatch()
-  const [isSaved, setIsSaved] = useState(
-    bookmarkStorage.articleExist(bookmarkStorage.read(), articleId)
-  )
+  const [isSaved, setIsSaved] = useState(false)
+
+  // Read from localStorage after the component is mounted
+  // to prevent SSR error
+  useEffect(() => {
+    setIsSaved(bookmarkStorage.articleExist(bookmarkStorage.read(), articleId))
+  }, [articleId])
 
   return (
     <Button

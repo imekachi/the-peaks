@@ -1,4 +1,5 @@
 import { AxiosError } from 'axios'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import { useQuery } from 'react-query'
@@ -7,8 +8,12 @@ import BookmarkButton from '../../components/BookmarkButton'
 import ErrorMessage from '../../components/ErrorMessage'
 import Loader from '../../components/Loader'
 import PageTitle from '../../components/PageTitle'
-import { createAPIArticleView } from '../../lib/api'
-import { GDSingleItemResponse } from '../../lib/types'
+import { createAPIArticleView, createAPITopStories } from '../../lib/api'
+import {
+  createArticleIdFromParts,
+  getArticlePartsFromId,
+} from '../../lib/article'
+import { GDOrdering, GDSingleItemResponse } from '../../lib/types'
 import media from '../../styles/mediaQuery'
 import snippets from '../../styles/snippets'
 import { dateTimeFormat } from '../../utils/format'
@@ -110,22 +115,29 @@ const MediaList = styled.section`
   }
 `
 
-export default function ArticleView() {
+interface ArticleViewProps {
+  preloadedResponse?: GDSingleItemResponse | null
+}
+
+export default function ArticleView({ preloadedResponse }: ArticleViewProps) {
   const router = useRouter()
-  const articleId = useMemo(() => {
-    if (Array.isArray(router.query.articleIdParts)) {
-      return router.query.articleIdParts.join('/')
-    }
-  }, [router.query])
+  const articleId = useMemo(
+    () => createArticleIdFromParts(router.query.articleIdParts as string[]),
+    [router.query]
+  )
 
   const query = useQuery<
     GDSingleItemResponse,
     AxiosError<GDSingleItemResponse>
   >(['articleView', articleId], createAPIArticleView(articleId as string), {
     enabled: !!articleId,
+    initialData: preloadedResponse || undefined,
   })
 
-  if (!articleId || query.isLoading || !query.isFetched) {
+  if (
+    !articleId ||
+    (!query.isSuccess && (query.isLoading || !query.isFetched))
+  ) {
     return (
       <>
         <PageTitle title="Loading article..." />
@@ -177,4 +189,57 @@ export default function ArticleView() {
       </MainContainer>
     </div>
   )
+}
+
+type ParsedArticleViewQuery = {
+  articleIdParts: string[]
+}
+
+// Making Next export this page as a statically generated page to improve SEO
+// (because this is a news site, right?)
+export const getStaticProps: GetStaticProps<
+  ArticleViewProps,
+  ParsedArticleViewQuery
+> = async ({ params }) => {
+  let articleId = createArticleIdFromParts(params?.articleIdParts)
+  let preloadedResponse = null
+
+  try {
+    if (articleId) {
+      preloadedResponse = await createAPIArticleView(articleId)()
+    }
+  } catch (err) {
+    console.error(
+      `> Error! while fetching data in getStaticProps_articleView: `,
+      err
+    )
+  }
+
+  return {
+    props: {
+      preloadedResponse,
+    },
+  }
+}
+
+// Pre-render for articles on the home page which are likely to get viewed
+export const getStaticPaths: GetStaticPaths<ParsedArticleViewQuery> = async () => {
+  let paths: { params: ParsedArticleViewQuery }[] = []
+
+  try {
+    // Get data from API top stories
+    const response = await createAPITopStories({
+      orderBy: GDOrdering.newest,
+    })()
+    // Get article ids that will be shown on the homepage
+    paths = response.results.map((article) => ({
+      params: { articleIdParts: getArticlePartsFromId(article.id) },
+    }))
+  } catch (err) {}
+
+  return {
+    paths,
+    // Allow paths that are not statically generated to get generated on the fly
+    fallback: true,
+  }
 }
