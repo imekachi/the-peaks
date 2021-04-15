@@ -8,7 +8,7 @@ as an assignment for front-end dev test.
 
 You can try out the [demo page here](https://the-peaks-imekachi.vercel.app/).
 
-## Local development mode
+## Running locally
 > API key for The Guardian Open Platform API is required.
 1. clone this repo
 ```bash
@@ -24,11 +24,24 @@ $ yarn
 # .env.local
 NEXT_PUBLIC_API_KEY=your_api_key_here
 ```
-4. Start dev server
+
+### Local server
+1. Build the app
+```bash
+$ yarn build
+```
+1. Start dev server
+```bash
+$ yarn start
+```
+3. Open browser and go to [http://localhost:3000](http://localhost:3000)
+
+### Local development mode
+1. Start dev server
 ```bash
 $ yarn dev
 ```
-5. Open browser and go to [http://localhost:3000](http://localhost:3000)
+2. Open browser and go to [http://localhost:3000](http://localhost:3000)
 
 ## Resources
 - [The Guardian Open Platform API Doc](https://open-platform.theguardian.com/documentation/)
