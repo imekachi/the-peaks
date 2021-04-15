@@ -1,4 +1,5 @@
 import { AxiosError } from 'axios'
+import { GetStaticProps } from 'next'
 import { useState } from 'react'
 import { useQuery } from 'react-query'
 import striptags from 'striptags'
@@ -63,9 +64,11 @@ type ArticleSectionId = typeof articleSections[number]
 
 interface HomeProps {
   preloadedResponse?: GDContentSearchResponse | null
-  preloadedArticleBySectionIds?: Record<
-    ArticleSectionId,
-    ArticlesByCategoryProps['preloadedResponse'] | null
+  preloadedArticleBySectionIds?: Partial<
+    Record<
+      ArticleSectionId,
+      ArticlesByCategoryProps['preloadedResponse'] | null
+    >
   >
 }
 
@@ -73,7 +76,6 @@ export default function Home({
   preloadedResponse,
   preloadedArticleBySectionIds,
 }: HomeProps) {
-  console.log(`> preloadedResponse: `, preloadedResponse)
   const [orderBy, setOrderBy] = useState<GDOrdering>(GDOrdering.newest)
   const queryParams = { orderBy }
   const query = useQuery<
@@ -157,7 +159,9 @@ export default function Home({
   )
 }
 
-export async function getStaticProps() {
+// Making Next export this page as a statically generated page to improve SEO
+// (because this is a news site, right?)
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
   // If something went wrong and you can't get preloadedResponse
   // you can't send it as `undefined`, it has to be null
   // and you'll have to handle it inside the component
@@ -188,7 +192,7 @@ export async function getStaticProps() {
         articlesBySectionIdsResponses[index]
     })
   } catch (err) {
-    console.error(`> Error! while fetching data in getStaticProps: `, err)
+    console.error(`> Error! while fetching data in getStaticProps_index: `, err)
   }
 
   return {
