@@ -73,6 +73,12 @@ const Content = styled.section`
     width: 100%;
   }
 
+  // Support responsive on embedded youtube iframe
+  iframe[src^='https:\/\/www.youtube'] {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+
   @media (min-width: ${(props) => props.theme.screen.md}) {
     grid-row-start: auto;
 
@@ -87,6 +93,7 @@ const MainContainer = styled.div`
   display: grid;
   grid-template-columns: auto;
 
+  /* It's here to also affect the content inside <MediaList> which is outside <Content> */
   figcaption {
     ${snippets.fontSize.xs};
     ${snippets.lineHeight.md};
